@@ -21,17 +21,17 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $brand = null;
 
-    #[ORM\Column]
-    private ?float $price = null;
+    #[ORM\Column(length: 255)]
+    private ?string $price = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $size = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $storage = null;
 
     #[ORM\Column]
-    private ?float $size = null;
-
-    #[ORM\Column]
-    private ?int $storage = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $releaseDate = null;
+    private ?\DateTimeImmutable $releaseDate = null;
 
     public function getId(): ?int
     {
@@ -62,36 +62,36 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getSize(): ?float
+    public function getSize(): ?string
     {
         return $this->size;
     }
 
-    public function setSize(float $size): self
+    public function setSize(string $size): self
     {
         $this->size = $size;
 
         return $this;
     }
 
-    public function getStorage(): ?int
+    public function getStorage(): ?string
     {
         return $this->storage;
     }
 
-    public function setStorage(int $storage): self
+    public function setStorage(string $storage): self
     {
         $this->storage = $storage;
 
