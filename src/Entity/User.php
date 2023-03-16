@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\State\UserProcessor;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\GetCollection;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[GetCollection(normalizationContext: ['groups' => "user"])]
 #[Get(normalizationContext: ['groups' => "user"])]
 #[Post(processor: UserProcessor::class, normalizationContext: ['groups' => "user"])]
+#[Delete]
 class User
 {
     #[ORM\Id]
