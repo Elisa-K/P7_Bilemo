@@ -25,7 +25,7 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Veuillez renseigner un prénom")]
+    #[Assert\NotBlank(message: "Veuillez renseigner un prénom", allowNull: false, normalizer: 'trim')]
     #[Assert\Length(
     min: 2,
     max: 255,
@@ -36,7 +36,7 @@ class User
     private string $firstname;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Veuillez renseigner un prénom")]
+    #[Assert\NotBlank(message: "Veuillez renseigner un nom", allowNull: false, normalizer: 'trim')]
     #[Assert\Length(
     min: 2,
     max: 255,
