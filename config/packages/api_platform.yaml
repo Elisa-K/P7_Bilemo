@@ -1,0 +1,12 @@
+api_platform:
+    formats:
+        jsonld:   ['application/ld+json']
+        jsonhal:  ['application/hal+json']
+        jsonapi:  ['application/vnd.api+json']
+        json:     ['application/json']
+        html:     ['text/html']
+    swagger:
+      api_keys:
+        JWT:
+          name: Authorization
+          type: header
