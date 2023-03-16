@@ -2,16 +2,20 @@
 
 namespace App\Entity;
 
+use App\State\UserProcessor;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table("users")]
 #[GetCollection(normalizationContext: ['groups' => "user"])]
 #[Get(normalizationContext: ['groups' => "user"])]
+#[Post(processor: UserProcessor::class, normalizationContext: ['groups' => "user"])]
 class User
 {
     #[ORM\Id]
@@ -21,10 +25,24 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un prénom")]
+    #[Assert\Length(
+    min: 2,
+    max: 255,
+    minMessage: "Le prénom doit contenir {{ limit }} caractères minimum",
+    maxMessage: "Le prénom doit contenir {{ limit }} caractères maximum"
+    )]
     #[Groups("user")]
     private string $firstname;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un prénom")]
+    #[Assert\Length(
+    min: 2,
+    max: 255,
+    minMessage: "Le nom doit contenir {{ limit }} caractères minimum",
+    maxMessage: "Le nom doit contenir {{ limit }} caractères maximum"
+    )]
     #[Groups("user")]
     private string $lastname;
 
