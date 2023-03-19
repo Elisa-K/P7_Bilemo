@@ -14,17 +14,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table("users")]
-#[GetCollection(normalizationContext: ['groups' => "user"])]
-#[Get(normalizationContext: ['groups' => "user"])]
-#[Post(processor: UserProcessor::class, normalizationContext: ['groups' => "user"])]
+#[GetCollection(normalizationContext: ['groups' => ["user_read"]])]
+#[Get(normalizationContext: ['groups' => ["user_read"]])]
+#[Post(processor: UserProcessor::class, denormalizationContext: ['groups' => ["user_add"]])]
 #[Delete]
 class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("user")]
+    #[Groups("user_read")]
     private ?int $id = null;
+
+    /**
+     * Prénom de l'utilisateur
+     */
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Veuillez renseigner un prénom", allowNull: false, normalizer: 'trim')]
@@ -34,7 +38,7 @@ class User
     minMessage: "Le prénom doit contenir {{ limit }} caractères minimum",
     maxMessage: "Le prénom doit contenir {{ limit }} caractères maximum"
     )]
-    #[Groups("user")]
+    #[Groups(["user_read", "user_add"])]
     private string $firstname;
 
     #[ORM\Column(length: 255)]
@@ -45,11 +49,11 @@ class User
     minMessage: "Le nom doit contenir {{ limit }} caractères minimum",
     maxMessage: "Le nom doit contenir {{ limit }} caractères maximum"
     )]
-    #[Groups("user")]
+    #[Groups(["user_read", "user_add"])]
     private string $lastname;
 
     #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
-    #[Groups("user")]
+    #[Groups("user_read")]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne]
