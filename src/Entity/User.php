@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\OpenApi\Model;
 use App\State\UserProcessor;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table("users")]
 #[GetCollection(normalizationContext: ['groups' => ["user_read"]])]
 #[Get(normalizationContext: ['groups' => ["user_read"]])]
-#[Post(processor: UserProcessor::class, denormalizationContext: ['groups' => ["user_add"]])]
+#[Post(processor: UserProcessor::class, denormalizationContext: ['groups' => ["user_add"]], normalizationContext: ['groups' => ["user_read"]])]
 #[Delete]
 class User
 {
@@ -29,7 +30,6 @@ class User
     /**
      * Prénom de l'utilisateur
      */
-
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Veuillez renseigner un prénom", allowNull: false, normalizer: 'trim')]
     #[Assert\Length(
@@ -41,6 +41,9 @@ class User
     #[Groups(["user_read", "user_add"])]
     private string $firstname;
 
+    /**
+     * Nom de l'utilisateur
+     */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Veuillez renseigner un nom", allowNull: false, normalizer: 'trim')]
     #[Assert\Length(
@@ -52,6 +55,9 @@ class User
     #[Groups(["user_read", "user_add"])]
     private string $lastname;
 
+    /**
+     * Date de création
+     */
     #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
     #[Groups("user_read")]
     private \DateTimeImmutable $createdAt;
