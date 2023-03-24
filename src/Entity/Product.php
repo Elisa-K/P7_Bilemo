@@ -18,21 +18,39 @@ class Product
     #[ORM\Column]
     private int $id;
 
+    /**
+     * Nom du modèle
+     */
     #[ORM\Column(length: 255)]
     private string $name;
 
+    /**
+     * Marque
+     */
     #[ORM\Column(length: 255)]
     private string $brand;
 
+    /**
+     * Prix
+     */
     #[ORM\Column(length: 255)]
     private string $price;
 
+    /**
+     * Taille de l'écran en pouce
+     */
     #[ORM\Column(length: 255)]
     private string $size;
 
+    /**
+     * Capacité de stockage
+     */
     #[ORM\Column(length: 255)]
     private string $storage;
 
+    /**
+     * Date de sortie
+     */
     #[ORM\Column]
     private \DateTimeImmutable $releaseDate;
 
