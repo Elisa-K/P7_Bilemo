@@ -9,7 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\Table("products")]
-#[GetCollection]
+#[GetCollection(paginationItemsPerPage: 3)]
 #[Get]
 class Product
 {
